@@ -1507,5 +1507,18 @@
     "snapHint": "Snapchat ne partage pas de nom d’utilisateur : la connexion ne vérifie donc pas le pseudo saisi."
   },
   "profile.socialFeed.unavailable": "Les publications {{platform}} ne sont pas disponibles pour le moment.",
-  "profile.socialFeed.view": "Voir @{{handle}}"
+  "profile.socialFeed.view": "Voir @{{handle}}",
+  "studio": {
+    "effects": {
+      "title": "Effets de carte",
+      "help": "Bordure laser et halo en direct. Désactivés avec mouvement réduit.",
+      "steam": "Afficher le statut Steam",
+      "steamHelp": "Affiche votre jeu via votre lien Steam (profil Steam public requis)."
+    }
+  },
+  "steam": {
+    "online": "En ligne sur Steam",
+    "playing": "{{name}} joue",
+    "label": "Profil Steam"
+  }
 }

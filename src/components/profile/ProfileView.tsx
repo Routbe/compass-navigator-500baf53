@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { ProfileYouTubeCard } from "@/components/profile/YouTubeCard";
 import { ProfileFeedback } from "@/components/profile/FeedbackCard";
 import { isProfileSectionKind, usesSectionFallback } from "@/lib/profile-section-blocks";
+import { SteamCard } from "@/components/profile/SteamCard";
 import { CustomStatusPill, NowPlaying, useNowPlaying } from "@/components/profile/NowPlaying";
 import { SnapchatProfile } from "@/components/profile/SnapchatProfile";
 import { SocialFeedCard } from "@/components/profile/SocialFeedCard";
@@ -452,6 +453,7 @@ export function ProfileView({
         {profile.username && <SnapchatProfile handle={profile.username} theme={t} buttonStyle={styleFor("live")} ownerName={profile.display_name || profile.username} />}
         {profile.username && <CustomStatusPill handle={profile.username} theme={t} />}
         {profile.username && <NowPlaying handle={profile.username} theme={t} />}
+        {profile.username && prefs.steamPresence && <SteamCard handle={profile.username} theme={t} effects={prefs.cardEffects} />}
         {profile.username && <ProfileIntegrations handle={profile.username} theme={t} buttonStyle={styleFor("live")} exclude={liveProviders} />}
         {profile.username && usesSectionFallback(profile.blocks, "widget:youtube") && <ProfileYouTubeCard handle={profile.username} theme={t} cardStyle={styleFor("widget:youtube")} />}
         {profile.username && <TipJarButton handle={profile.username} theme={t} />}

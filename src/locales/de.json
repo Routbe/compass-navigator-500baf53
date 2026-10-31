@@ -1507,5 +1507,18 @@
     "snapHint": "Snapchat teilt keinen Benutzernamen: Eine Verbindung bestätigt daher nicht den eingegebenen Namen."
   },
   "profile.socialFeed.unavailable": "{{platform}}-Beiträge sind gerade nicht verfügbar.",
-  "profile.socialFeed.view": "@{{handle}} ansehen"
+  "profile.socialFeed.view": "@{{handle}} ansehen",
+  "studio": {
+    "effects": {
+      "title": "Karteneffekte",
+      "help": "Laserrand und Live-Glühen auf Live-Karten. Aus bei reduzierter Bewegung.",
+      "steam": "Steam-Status zeigen",
+      "steamHelp": "Zeigt, was du spielst, über deinen Steam-Link (Steam-Profil muss öffentlich sein)."
+    }
+  },
+  "steam": {
+    "online": "Online auf Steam",
+    "playing": "{{name}} spielt",
+    "label": "Steam-Profil"
+  }
 }
