@@ -1507,5 +1507,18 @@
     "snapHint": "Snapchat deelt geen gebruikersnaam: koppelen bewijst daarom niet de ingevoerde handle."
   },
   "profile.socialFeed.unavailable": "Posts van {{platform}} zijn nu niet beschikbaar.",
-  "profile.socialFeed.view": "@{{handle}} bekijken"
+  "profile.socialFeed.view": "@{{handle}} bekijken",
+  "studio": {
+    "effects": {
+      "title": "Kaarteffecten",
+      "help": "Laserrand en live-gloed op live kaarten. Uit bij 'minder beweging'.",
+      "steam": "Steam-status tonen",
+      "steamHelp": "Toont wat je speelt via je Steam-link (profiel moet publiek zijn op Steam)."
+    }
+  },
+  "steam": {
+    "online": "Online op Steam",
+    "playing": "{{name}} speelt nu",
+    "label": "Steam-profiel"
+  }
 }

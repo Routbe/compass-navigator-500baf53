@@ -198,3 +198,5 @@ Public site base URL (e.g. https://rout.be) used for stamp claim links created o
 Reuses `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` and `PSP_ENCRYPTION_KEY`. Add redirect URI `https://rout.be/api/public/youtube/callback` in Google Cloud and enable YouTube Data API v3.
 
 - `ROUT_AUDIT_SIGNING_SECRET` — HMAC key for daily audit checkpoints (`/api/public/cron/audit-checkpoint`).
+
+- `STEAM_WEB_API_KEY` — optional; Steam live card. Without it the card stays hidden.

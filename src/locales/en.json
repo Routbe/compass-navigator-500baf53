@@ -1507,5 +1507,18 @@
     "snapHint": "Snapchat does not share a username, so connecting cannot verify the entered handle."
   },
   "profile.socialFeed.unavailable": "{{platform}} posts aren't available right now.",
-  "profile.socialFeed.view": "View @{{handle}}"
+  "profile.socialFeed.view": "View @{{handle}}",
+  "studio": {
+    "effects": {
+      "title": "Card effects",
+      "help": "Laser border and live glow on live cards. Off with reduced motion.",
+      "steam": "Show Steam status",
+      "steamHelp": "Shows what you play via your Steam link (Steam profile must be public)."
+    }
+  },
+  "steam": {
+    "online": "Online on Steam",
+    "playing": "{{name}} is playing",
+    "label": "Steam profile"
+  }
 }

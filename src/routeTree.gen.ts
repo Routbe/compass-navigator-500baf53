@@ -176,6 +176,7 @@ import { Route as ApiPublicSessionLogoutRouteImport } from './routes/api_.public
 import { Route as ApiPublicSmsInboundRouteImport } from './routes/api_.public.sms.inbound'
 import { Route as ApiPublicSnapchatCallbackRouteImport } from './routes/api_.public.snapchat.callback'
 import { Route as ApiPublicSpotifyCallbackRouteImport } from './routes/api_.public.spotify.callback'
+import { Route as ApiPublicSteamHandleRouteImport } from './routes/api_.public.steam.$handle'
 import { Route as ApiPublicTelegramWebhookRouteImport } from './routes/api_.public.telegram.webhook'
 import { Route as ApiPublicWeatherWebhookTokenRouteImport } from './routes/api_.public.weather-webhook.$token'
 import { Route as ApiPublicWebhooksBankingRouteImport } from './routes/api_.public.webhooks.banking'
@@ -1081,6 +1082,11 @@ const ApiPublicSpotifyCallbackRoute =
     path: '/api/public/spotify/callback',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicSteamHandleRoute = ApiPublicSteamHandleRouteImport.update({
+  id: '/api_/public/steam/$handle',
+  path: '/api/public/steam/$handle',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicTelegramWebhookRoute =
   ApiPublicTelegramWebhookRouteImport.update({
     id: '/api_/public/telegram/webhook',
@@ -1383,6 +1389,7 @@ export interface FileRoutesByFullPath {
   '/api/public/sms/inbound': typeof ApiPublicSmsInboundRoute
   '/api/public/snapchat/callback': typeof ApiPublicSnapchatCallbackRoute
   '/api/public/spotify/callback': typeof ApiPublicSpotifyCallbackRoute
+  '/api/public/steam/$handle': typeof ApiPublicSteamHandleRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
   '/api/public/weather-webhook/$token': typeof ApiPublicWeatherWebhookTokenRoute
   '/api/public/webhooks/banking': typeof ApiPublicWebhooksBankingRoute
@@ -1569,6 +1576,7 @@ export interface FileRoutesByTo {
   '/api/public/sms/inbound': typeof ApiPublicSmsInboundRoute
   '/api/public/snapchat/callback': typeof ApiPublicSnapchatCallbackRoute
   '/api/public/spotify/callback': typeof ApiPublicSpotifyCallbackRoute
+  '/api/public/steam/$handle': typeof ApiPublicSteamHandleRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
   '/api/public/weather-webhook/$token': typeof ApiPublicWeatherWebhookTokenRoute
   '/api/public/webhooks/banking': typeof ApiPublicWebhooksBankingRoute
@@ -1762,6 +1770,7 @@ export interface FileRoutesById {
   '/api_/public/sms/inbound': typeof ApiPublicSmsInboundRoute
   '/api_/public/snapchat/callback': typeof ApiPublicSnapchatCallbackRoute
   '/api_/public/spotify/callback': typeof ApiPublicSpotifyCallbackRoute
+  '/api_/public/steam/$handle': typeof ApiPublicSteamHandleRoute
   '/api_/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
   '/api_/public/weather-webhook/$token': typeof ApiPublicWeatherWebhookTokenRoute
   '/api_/public/webhooks/banking': typeof ApiPublicWebhooksBankingRoute
@@ -1955,6 +1964,7 @@ export interface FileRouteTypes {
     | '/api/public/sms/inbound'
     | '/api/public/snapchat/callback'
     | '/api/public/spotify/callback'
+    | '/api/public/steam/$handle'
     | '/api/public/telegram/webhook'
     | '/api/public/weather-webhook/$token'
     | '/api/public/webhooks/banking'
@@ -2141,6 +2151,7 @@ export interface FileRouteTypes {
     | '/api/public/sms/inbound'
     | '/api/public/snapchat/callback'
     | '/api/public/spotify/callback'
+    | '/api/public/steam/$handle'
     | '/api/public/telegram/webhook'
     | '/api/public/weather-webhook/$token'
     | '/api/public/webhooks/banking'
@@ -2333,6 +2344,7 @@ export interface FileRouteTypes {
     | '/api_/public/sms/inbound'
     | '/api_/public/snapchat/callback'
     | '/api_/public/spotify/callback'
+    | '/api_/public/steam/$handle'
     | '/api_/public/telegram/webhook'
     | '/api_/public/weather-webhook/$token'
     | '/api_/public/webhooks/banking'
@@ -2485,6 +2497,7 @@ export interface RootRouteChildren {
   ApiPublicSmsInboundRoute: typeof ApiPublicSmsInboundRoute
   ApiPublicSnapchatCallbackRoute: typeof ApiPublicSnapchatCallbackRoute
   ApiPublicSpotifyCallbackRoute: typeof ApiPublicSpotifyCallbackRoute
+  ApiPublicSteamHandleRoute: typeof ApiPublicSteamHandleRoute
   ApiPublicTelegramWebhookRoute: typeof ApiPublicTelegramWebhookRoute
   ApiPublicWeatherWebhookTokenRoute: typeof ApiPublicWeatherWebhookTokenRoute
   ApiPublicWebhooksBankingRoute: typeof ApiPublicWebhooksBankingRoute
@@ -3666,6 +3679,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicSpotifyCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api_/public/steam/$handle': {
+      id: '/api_/public/steam/$handle'
+      path: '/api/public/steam/$handle'
+      fullPath: '/api/public/steam/$handle'
+      preLoaderRoute: typeof ApiPublicSteamHandleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api_/public/telegram/webhook': {
       id: '/api_/public/telegram/webhook'
       path: '/api/public/telegram/webhook'
@@ -4168,6 +4188,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicSmsInboundRoute: ApiPublicSmsInboundRoute,
   ApiPublicSnapchatCallbackRoute: ApiPublicSnapchatCallbackRoute,
   ApiPublicSpotifyCallbackRoute: ApiPublicSpotifyCallbackRoute,
+  ApiPublicSteamHandleRoute: ApiPublicSteamHandleRoute,
   ApiPublicTelegramWebhookRoute: ApiPublicTelegramWebhookRoute,
   ApiPublicWeatherWebhookTokenRoute: ApiPublicWeatherWebhookTokenRoute,
   ApiPublicWebhooksBankingRoute: ApiPublicWebhooksBankingRoute,
