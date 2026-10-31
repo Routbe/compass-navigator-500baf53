@@ -1731,7 +1731,6 @@ export interface PublicUsersRow {
   "id": string;
   "email": string;
   "email_normalized": string | null;
-  "password_hash": string | null;
   "email_confirmed_at": string | Date | null;
   "last_sign_in_at": string | Date | null;
   "user_metadata": JsonValue;
