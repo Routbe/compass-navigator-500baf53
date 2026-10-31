@@ -1,5 +1,6 @@
 import { useI18n } from "@/lib/i18n";
 import { FeedbackPanel } from "@/components/studio/FeedbackPanel";
+import { EventsPanel } from "@/components/studio/EventsPanel";
 import { isProfileSectionKind, PROFILE_SECTION_LABELS } from "@/lib/profile-section-blocks";
 import { integrationById } from "@/lib/integrations-catalog";
 import { GuestbookAccordion } from "@/components/studio/GuestbookAccordion";
@@ -1242,6 +1243,7 @@ export function ProfileEditor({ variant = "verified", pageMode = "profile", onPa
 
           {tab === "analytics" && <VisitorPanel defaultSpace={alias ? "alias" : "all"} />}
           {tab === "analytics" && <FeedbackPanel handle={normalized || handle} space={alias ? "alias" : "root"} />}
+          {tab === "analytics" && <EventsPanel handle={normalized || handle} space={alias ? "alias" : "root"} />}
           {tab === "analytics" && (
             <section className="space-y-4 rounded-2xl border border-border bg-card p-4 sm:p-5">
               <div className="flex flex-wrap items-center justify-between gap-2">
