@@ -1077,6 +1077,23 @@ export interface PublicProfileDraftsRow {
   "published_at": string | Date | null;
 }
 
+export interface PublicProfileEventsRow {
+  "id": string;
+  "user_id": string;
+  "workspace_id": string | null;
+  "title": string;
+  "starts_at": string | Date;
+  "ends_at": string | Date | null;
+  "venue": string;
+  "description": string;
+  "ticket_url": string;
+  "published": boolean;
+  "slug": string;
+  "profile_space": string;
+  "profile_handle": string;
+  "created_at": string | Date;
+}
+
 export interface PublicProfileIngestTokensRow {
   "user_id": string;
   "token_hash": string;
@@ -1714,6 +1731,7 @@ export interface PublicUsersRow {
   "id": string;
   "email": string;
   "email_normalized": string | null;
+  "password_hash": string | null;
   "email_confirmed_at": string | Date | null;
   "last_sign_in_at": string | Date | null;
   "user_metadata": JsonValue;
@@ -1987,6 +2005,7 @@ export interface DbTables {
   "public.pro_waitlist": PublicProWaitlistRow;
   "public.profile_design_templates": PublicProfileDesignTemplatesRow;
   "public.profile_drafts": PublicProfileDraftsRow;
+  "public.profile_events": PublicProfileEventsRow;
   "public.profile_ingest_tokens": PublicProfileIngestTokensRow;
   "public.profile_link_clicks": PublicProfileLinkClicksRow;
   "public.profile_questions": PublicProfileQuestionsRow;
