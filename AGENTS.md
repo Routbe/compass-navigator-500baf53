@@ -66,3 +66,4 @@
 - Custom-domain "/" redirects come only from pure `root-redirect.ts` (db/0128), applied in src/start.ts. Why: one tested rule, no open redirects.
 - Identity tiers: identity_verifications holds the immutable first proof; tier flags, nullifiers and the legal name live on verified_identities, and tier 1 -> tier 2 upgrades are decided only by `verificationDecision` (identity-tiers.ts). Why: a real human must be able to add the blue mark without breaking immutability.
 - Developer Console apps and API keys are listed/created per active scope (workspace_id null = personal). Why: no keys or apps cross personal/workspace scopes.
+- Steam status is read only via `/api/public/steam/$handle` (steam-presence.server.ts, 5-min cache), requires the `steamPresence` opt-in and a public profile; card effects are CSS-only classes from `cardEffectClasses`. Why: visitors never contact Steam and effects stay battery-friendly.
