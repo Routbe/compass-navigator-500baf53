@@ -23,7 +23,7 @@ export const Route = createFileRoute("/event/$slug")({
 });
 
 function EventRoute() {
-  const event = Route.useLoaderData()[0];
+  const event = Route.useLoaderData()?.[0];
   return <EventPage event={event} />;
 }
 
