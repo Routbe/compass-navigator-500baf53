@@ -11,7 +11,7 @@
 ## Open
 - [x] Round 5: Studio cleanup (avatar shape in Vormgeving + squircle, presets icon, share icon)
 - [x] Round 6: Feedback & reviews (0134 applied, tests green)
-- [ ] Round 7: Events + .ics (migration 0135)
+- [x] Round 7: Events engine (0135 applied, Studio panel, /event/:slug with QR + .ics)
 - [ ] Round 8: Steam card (migration 0136; needs STEAM_WEB_API_KEY) + CSS effects
 - [ ] 0125 legacy password drop (held back, destructive)
 - [ ] Live sign-in test (needs secrets)
