@@ -10317,6 +10317,208 @@
     },
     {
       "schema": "public",
+      "name": "profile_events",
+      "columns": [
+        {
+          "name": "id",
+          "type": "uuid",
+          "notNull": true,
+          "default": "gen_random_uuid()",
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "user_id",
+          "type": "uuid",
+          "notNull": true,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "workspace_id",
+          "type": "uuid",
+          "notNull": false,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "notNull": true,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "starts_at",
+          "type": "timestamp with time zone",
+          "notNull": true,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "ends_at",
+          "type": "timestamp with time zone",
+          "notNull": false,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "venue",
+          "type": "text",
+          "notNull": true,
+          "default": "''::text",
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "notNull": true,
+          "default": "''::text",
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "ticket_url",
+          "type": "text",
+          "notNull": true,
+          "default": "''::text",
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "published",
+          "type": "boolean",
+          "notNull": true,
+          "default": "true",
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "slug",
+          "type": "text",
+          "notNull": true,
+          "default": "(gen_random_uuid())::text",
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "profile_space",
+          "type": "text",
+          "notNull": true,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "profile_handle",
+          "type": "text",
+          "notNull": true,
+          "default": null,
+          "identity": null,
+          "generated": null
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "notNull": true,
+          "default": "now()",
+          "identity": null,
+          "generated": null
+        }
+      ],
+      "constraints": [
+        {
+          "name": "profile_events_check",
+          "kind": "c",
+          "def": "CHECK (((ends_at IS NULL) OR (ends_at > starts_at)))"
+        },
+        {
+          "name": "profile_events_check1",
+          "kind": "c",
+          "def": "CHECK (((profile_space = 'workspace'::text) = (workspace_id IS NOT NULL)))"
+        },
+        {
+          "name": "profile_events_description_check",
+          "kind": "c",
+          "def": "CHECK ((char_length(description) <= 2000))"
+        },
+        {
+          "name": "profile_events_pkey",
+          "kind": "p",
+          "def": "PRIMARY KEY (id)"
+        },
+        {
+          "name": "profile_events_profile_space_check",
+          "kind": "c",
+          "def": "CHECK ((profile_space = ANY (ARRAY['root'::text, 'alias'::text, 'workspace'::text])))"
+        },
+        {
+          "name": "profile_events_slug_key",
+          "kind": "u",
+          "def": "UNIQUE (slug)"
+        },
+        {
+          "name": "profile_events_ticket_url_check",
+          "kind": "c",
+          "def": "CHECK (((char_length(ticket_url) <= 500) AND ((ticket_url = ''::text) OR (ticket_url ~ '^https://'::text))))"
+        },
+        {
+          "name": "profile_events_title_check",
+          "kind": "c",
+          "def": "CHECK (((char_length(title) >= 1) AND (char_length(title) <= 160)))"
+        },
+        {
+          "name": "profile_events_user_id_fkey",
+          "kind": "f",
+          "def": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+        },
+        {
+          "name": "profile_events_venue_check",
+          "kind": "c",
+          "def": "CHECK ((char_length(venue) <= 200))"
+        },
+        {
+          "name": "profile_events_workspace_id_fkey",
+          "kind": "f",
+          "def": "FOREIGN KEY (workspace_id) REFERENCES workspaces(id) ON DELETE CASCADE"
+        }
+      ],
+      "indexes": [
+        "CREATE INDEX profile_events_binding_idx ON public.profile_events USING btree (profile_space, profile_handle, starts_at)",
+        "CREATE INDEX profile_events_scope_idx ON public.profile_events USING btree (workspace_id, user_id, starts_at)"
+      ],
+      "triggers": [],
+      "rls": true,
+      "forceRls": false,
+      "policies": [
+        {
+          "name": "rout_scope",
+          "permissive": true,
+          "roles": [
+            "public"
+          ],
+          "cmd": "ALL",
+          "using": "(((workspace_id IS NULL) AND (user_id = rout_current_user_id())) OR ((workspace_id IS NOT NULL) AND rout_is_workspace_member(workspace_id)))",
+          "check": "(((workspace_id IS NULL) AND (user_id = rout_current_user_id())) OR ((workspace_id IS NOT NULL) AND rout_is_workspace_member(workspace_id)))"
+        }
+      ],
+      "grants": {
+        "rout_app": [
+          "DELETE",
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ]
+      }
+    },
+    {
+      "schema": "public",
       "name": "profile_ingest_tokens",
       "columns": [
         {
@@ -18463,6 +18665,12 @@
     },
     {
       "schema": "public",
+      "name": "profile_event_is_public",
+      "args": "e profile_events",
+      "def": "CREATE OR REPLACE FUNCTION public.profile_event_is_public(e profile_events)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\n  select e.published and case e.profile_space\n    when 'alias' then exists (\n      select 1 from public.alias_profiles a join public.profiles p on p.id = a.user_id\n      where a.user_id = e.user_id and a.handle = e.profile_handle and a.enabled\n        and coalesce((a.display_prefs->>'publicProfile')::boolean, true)\n        and not coalesce(p.is_banned,false) and not coalesce(p.is_suspended,false)\n        and coalesce(p.status,'active') not in ('frozen','banned','suspended'))\n    when 'root' then exists (\n      select 1 from public.profiles p where p.id = e.user_id and p.username = e.profile_handle\n        and p.workspace_id is null and coalesce((p.display_prefs->>'publicProfile')::boolean,true)\n        and not coalesce(p.is_banned,false) and not coalesce(p.is_suspended,false)\n        and coalesce(p.status,'active') not in ('frozen','banned','suspended'))\n    when 'workspace' then exists (\n      select 1 from public.workspaces w join public.profiles p on p.workspace_id = w.id\n      where w.id = e.workspace_id and w.slug = e.profile_handle\n        and coalesce((p.display_prefs->>'publicProfile')::boolean,true)\n        and not coalesce(p.is_banned,false) and not coalesce(p.is_suspended,false)\n        and coalesce(p.status,'active') not in ('frozen','banned','suspended'))\n    else false end\n$function$"
+    },
+    {
+      "schema": "public",
       "name": "profiles_handle_namespace_guard",
       "args": "",
       "def": "CREATE OR REPLACE FUNCTION public.profiles_handle_namespace_guard()\n RETURNS trigger\n LANGUAGE plpgsql\nAS $function$\nbegin\n  if new.username is distinct from coalesce(old.username, null) then\n    perform public.assert_handle_namespace_free(new.username, new.id);\n  end if;\n  if new.subdomain_alias is distinct from coalesce(old.subdomain_alias, null) then\n    perform public.assert_handle_namespace_free(new.subdomain_alias, new.id);\n  end if;\n  return new;\nend;\n$function$"
@@ -18472,6 +18680,12 @@
       "name": "publish_profile_draft",
       "args": "p_user_id uuid, p_space text, p_expected_revision bigint",
       "def": "CREATE OR REPLACE FUNCTION public.publish_profile_draft(p_user_id uuid, p_space text, p_expected_revision bigint)\n RETURNS TABLE(revision bigint, published_revision bigint, published_at timestamp with time zone)\n LANGUAGE plpgsql\n SET search_path TO 'public'\nAS $function$\ndeclare\n  v_payload jsonb;\n  v_revision bigint;\nbegin\n  select d.payload, d.revision into v_payload, v_revision\n    from public.profile_drafts d\n   where d.user_id = p_user_id and d.space = p_space\n   for update;\n\n  if v_payload is null or v_revision <> p_expected_revision then\n    raise exception 'draft_conflict';\n  end if;\n\n  if p_space = 'verified' then\n    update public.profiles set\n      username = v_payload->>'username',\n      display_name = nullif(v_payload->>'displayName', ''),\n      tagline = nullif(v_payload->>'tagline', ''),\n      avatar_url = nullif(v_payload->>'avatarUrl', ''),\n      favicon_url = nullif(v_payload->>'faviconUrl', ''),\n      theme = coalesce(nullif(v_payload->>'theme', ''), 'noir'),\n      card_style = coalesce(nullif(v_payload->>'cardStyle', ''), 'bordered'),\n      blocks = coalesce(v_payload->'blocks', '[]'::jsonb),\n      display_prefs = coalesce(v_payload->'displayPrefs', '{}'::jsonb),\n      updated_at = now()\n    where id = p_user_id;\n    if not found then raise exception 'profile_not_found'; end if;\n  elsif p_space = 'alias' then\n    update public.alias_profiles set\n      handle = v_payload->>'username',\n      display_name = nullif(v_payload->>'displayName', ''),\n      tagline = nullif(v_payload->>'tagline', ''),\n      avatar_url = nullif(v_payload->>'avatarUrl', ''),\n      favicon_url = nullif(v_payload->>'faviconUrl', ''),\n      theme = coalesce(nullif(v_payload->>'theme', ''), 'noir'),\n      card_style = coalesce(nullif(v_payload->>'cardStyle', ''), 'bordered'),\n      blocks = coalesce(v_payload->'blocks', '[]'::jsonb),\n      display_prefs = coalesce(v_payload->'displayPrefs', '{}'::jsonb),\n      updated_at = now()\n    where user_id = p_user_id;\n    if not found then raise exception 'profile_not_found'; end if;\n  else\n    raise exception 'draft_space_invalid';\n  end if;\n\n  update public.profile_drafts d\n     set published_revision = d.revision, published_at = now(), updated_at = now()\n   where d.user_id = p_user_id and d.space = p_space;\n\n  return query\n    select d.revision, d.published_revision, d.published_at\n      from public.profile_drafts d\n     where d.user_id = p_user_id and d.space = p_space;\nend;\n$function$"
+    },
+    {
+      "schema": "public",
+      "name": "read_public_events",
+      "args": "p_slug text, p_space text, p_handle text",
+      "def": "CREATE OR REPLACE FUNCTION public.read_public_events(p_slug text, p_space text, p_handle text)\n RETURNS jsonb\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\n  select coalesce(jsonb_agg(jsonb_build_object(\n    'id',e.id,'title',e.title,'startsAt',e.starts_at,'endsAt',e.ends_at,'venue',e.venue,\n    'description',e.description,'ticketUrl',e.ticket_url,'slug',e.slug,\n    'profileSpace',e.profile_space,'profileHandle',e.profile_handle) order by e.starts_at),'[]'::jsonb)\n  from (\n    select * from public.profile_events e\n    where public.profile_event_is_public(e)\n      and (case when p_slug is not null then e.slug = p_slug\n           else e.profile_space = p_space and e.profile_handle = p_handle\n             and coalesce(e.ends_at, e.starts_at + interval '4 hours') >= now() end)\n    order by e.starts_at limit 50\n  ) e\n$function$"
     },
     {
       "schema": "public",
